@@ -1,0 +1,28 @@
+{
+  "name": "koa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": " nodemon ./src/main.js "
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^9.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.13.4",
+    "koa-body": "^4.2.0",
+    "koa-router": "^10.1.1",
+    "mysql2": "^2.3.2",
+    "nodemailer": "^6.7.1",
+    "sequelize": "^6.9.0",
+    "tedious": "^14.0.0",
+    "tencentcloud-sdk-nodejs": "^4.0.241"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
