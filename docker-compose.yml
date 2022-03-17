@@ -1,0 +1,25 @@
+version: "3"
+services:
+        web:
+                image: node:12-alpine   #node镜像名称
+                working_dir: /code      #工作目录
+                volumes:                #挂载点
+                        - .:/code       #把本地当前目录挂载到容器的/code目录
+                ports:                  #端口映射
+                        - "8000:8000"   #本地端口：容器端口
+                command: npm run dev      #这条命令会在工作目录下执行         
+        mysql:
+                image: mysql/mysql-server:latest
+                restart: unless-stopped
+                ports:
+                  - "3306:3306"
+                expose:
+                  - 3306
+                environment:
+                  - MYSQL_ROOT_PASSWORD=123456
+                  - MYSQL_USER=zdsc   #创建test用户
+                  - MYSQL_PASSWORD=123456  #设置test用户的密码
+                  - TZ=Asia/Shanghai # 设置时区
+                volumes:
+                  - ./mysql:/var/lib/mysql
+                command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
