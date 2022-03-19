@@ -35,7 +35,7 @@ class UserController {
       const { password, ...res } = await getUerInfo({ user_name })
   
       ctx.body = {
-        code: 0,
+        code: 200,
         message: '用户登录成功',
         result: {
           token: jwt.sign(res, JWT_SECRET, { expiresIn: '1d' }),
@@ -54,7 +54,7 @@ class UserController {
       console.log(user_login_code_req,user_login_code)
       if(user_login_code_req === user_login_code){
         ctx.body = {
-          code: 0,
+          code: 200,
           message: '用户登录成功',
           result: {
             token: jwt.sign(res, JWT_SECRET, { expiresIn: '1d' }),

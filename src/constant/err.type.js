@@ -86,4 +86,9 @@ module.exports = {
       message: '数据格式错误',
       result: '',
     },
+    getclassListError: {
+      code: '10001',
+      message: '获取课程列表失败',
+      result: '',
+    },
   }
