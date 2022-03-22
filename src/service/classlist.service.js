@@ -2,21 +2,42 @@ const ClassList = require('../model/class.model')
 const { Op } = require("sequelize");
 class ClassService {
 
-    async getClassList(year='2021',season='2021',current ) {
-
-        let pageSize = 10;
-        const res = await ClassList.findAll({
+    async getClassList(year='',season='',current ) {
+        let res = []
+        if(year ===''||season === ''){
+             res = await ClassList.findAll();
+        }else{
+             res = await ClassList.findAll({
+                where: {
+                    year: {
+                    [Op.eq]: year
+                  },
+                  season:{
+                    [Op.eq]:season
+                  },
+                }
+              });
+        }
+        let ret = []
+        let pageSize = 10*current;
+        for(let i = pageSize-10;i<pageSize;i++){
+            if(res[i]){
+                ret.push(res[i])
+            }
+        }
+        
+        console.log(res)
+        return ret ? ret : null
+    }
+    async findClassListByClassName(className){
+        let res = []
+        res = await ClassList.findAll({
             where: {
-                year: {
-                [Op.eq]: year
-              },
-              season:{
-                [Op.eq]:season
-              },
+                className
             }
           });
-        console.log(res)
-        return res ? res : null
+          // SELECT * FROM post WHERE authorId = 2;
+          return res
     }
 }
 module.exports = new ClassService()

@@ -1,6 +1,6 @@
 
 const jwt = require('jsonwebtoken');
-const { getClassList } = require('../service/classlist.service');
+const { getClassList,findClassListByClassName } = require('../service/classlist.service');
 const {getclassListError} = require('../constant/err.type');
 const { JWT_SECRET } = require('../config/config.default')
 
@@ -15,7 +15,7 @@ class UserController {
             console.log('课程列表', { res })
             ctx.body = {
                 code: 200,
-                message: '课程列表返回成功',
+                message: 'success',
                 result: {
                   class_list:res
                 }
@@ -29,6 +29,24 @@ class UserController {
         }
       
         await next()
+    }
+    findClassListByClassName = async (ctx,next)=>{
+        const { className } = ctx.request.query
+        try {
+            const res = await findClassListByClassName( className );
+            console.log("根据课程名获取课程信息",res)
+            ctx.body = {
+                code: 200,
+                message: 'success',
+                result: {
+                  class_list:res
+                }
+              }
+        } catch (error) {
+            console.error('根据课程名获取课程信息错误', err)
+            ctx.app.emit('error', getclassListError, ctx)
+          return
+        }
     }
 }
 

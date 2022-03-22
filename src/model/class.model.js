@@ -8,7 +8,7 @@ const ClassList = seq.define('nx_classlist', {
   className: {
     type: DataTypes.STRING,
     allowNull: true,
-    unique: true,
+    unique: false,
     comment: '课程名称',
     defaultValue: '计算机网络'
   },
