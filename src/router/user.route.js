@@ -2,7 +2,7 @@ const Router = require('koa-router');
 const router = new Router({prefix:'/users'});
 const { userValidator,verifyUser,crpytPassword,verifyLogin,verifyMsg} = require('../middleware/user.middleware');
 const { auth } = require('../middleware/auth.middleware')
-const {register,login,loginByMsg,changePassword,updateCodeByphone} = require('../controller/user.controller');
+const {register,login,loginByMsg,changePassword,updateCodeByphone,selectionClass} = require('../controller/user.controller');
 const { sendEmail} = require('../middleware/email.middleware');
 const { sendsmsMessage } = require("../middleware/phone.middleware");
 //注册接口
@@ -17,4 +17,6 @@ router.post('/sendemail',sendEmail);
 router.post('/sendmsg',sendsmsMessage);
 //短信验证码登陆
 router.post('/loginByMsg',userValidator,verifyLogin,loginByMsg)
+//选课接口，参数课程名称和用户名
+router.post('/selectionClass',auth,selectionClass);
 module.exports = router;

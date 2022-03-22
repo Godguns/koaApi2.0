@@ -11,7 +11,7 @@ class UserService {
         user_name && Object.assign(whereOpt, { user_name })
         password && Object.assign(whereOpt, { password })
         const res = await User.findOne({
-            attributes: ['id', 'user_name', 'password','user_login_code'],
+            // attributes: ['id', 'user_name', 'password','user_login_code'],
             where: whereOpt,
         })
         console.log(res)
@@ -28,6 +28,11 @@ class UserService {
         console.log(res)
         return res[0] > 0 ? true : false
       }
+    async addClassToUser(user_name,newClassList){
+        const res = await User.update({user_choosed_classList:JSON.stringify(newClassList)}, { where: { user_name } })
+        // console.log(res)
+        return res[0] > 0 ? true : false
+    }
 
       async updateCodeByphone(obj) {
           let userphone = obj.userphone

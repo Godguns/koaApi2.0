@@ -37,6 +37,12 @@ const User = seq.define('nx_user', {
     allowNull:true,
     comment:"验证码",
     defaultValue: 0
+  },
+  user_choosed_classList:{
+    type:DataTypes.STRING,
+    allowNull:true,
+    comment:"用户已选课程",
+    defaultValue: '[]'
   }
 
 })

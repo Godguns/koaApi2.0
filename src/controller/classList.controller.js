@@ -43,7 +43,7 @@ class UserController {
                 }
               }
         } catch (error) {
-            console.error('根据课程名获取课程信息错误', err)
+            console.error('根据课程名获取课程信息错误', error)
             ctx.app.emit('error', getclassListError, ctx)
           return
         }

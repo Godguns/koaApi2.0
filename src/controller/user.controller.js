@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { createUser,getUerInfo,updateById} = require('../service/user.service');
+const { createUser,getUerInfo,updateById,addClassToUser} = require('../service/user.service');
 const {userRegisterError} = require('../constant/err.type');
 const { JWT_SECRET } = require('../config/config.default')
 
@@ -43,6 +43,40 @@ class UserController {
       }
     } catch (err) {
       console.error('用户登录失败', err)
+      ctx.body = {
+        code: 100001,
+        message: '用户登录失败',
+      }
+    }
+  }
+  async selectionClass(ctx,next){
+    const { user_name,className } = (ctx.request.body);
+    console.log(user_name,className)
+    try {
+      const { password,user_choosed_classList, ...res } = await getUerInfo({ user_name })
+      console.log(">>>",className)
+      let newArr = [...JSON.parse(user_choosed_classList),className]
+      let result = await addClassToUser(user_name,newArr)
+      if(result === true){
+        ctx.body = {
+          code: 200,
+          message: '选课成功',
+          result: '',
+        }
+      }else{
+        ctx.body = {
+          code: 10000,
+          message: '选课失败',
+          result: '',
+        }
+      }
+      
+    } catch (error) {
+      console.error('选课系统异常', error)
+      ctx.body = {
+        code: 100001,
+        message: '选课系统异常',
+      }
     }
   }
   async loginByMsg(ctx,next){
@@ -72,7 +106,7 @@ class UserController {
       console.error('用户登录失败', err)
     }
   }
-    async changePassword(ctx, next) {
+  async changePassword(ctx, next) {
     // 1. 获取数据
     console.log(ctx.state.user)
     const id = ctx.state.user.id
@@ -90,7 +124,7 @@ class UserController {
     // 2. 操作数据库
     if (await updateById({ id, user_name,password:newpassword })) {
       ctx.body = {
-        code: 0,
+        code: 200,
         message: '修改密码成功',
         result: '',
       }

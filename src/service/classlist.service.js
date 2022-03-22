@@ -33,7 +33,9 @@ class ClassService {
         let res = []
         res = await ClassList.findAll({
             where: {
-                className
+                className:{
+                    [Op.startsWith]: className,
+                }
             }
           });
           // SELECT * FROM post WHERE authorId = 2;
