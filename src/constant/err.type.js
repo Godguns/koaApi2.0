@@ -91,4 +91,14 @@ module.exports = {
       message: '获取课程列表失败',
       result: '',
     },
+    uploadImageError:{
+      code:'10001',
+      message:'上传图片失败',
+      result:''
+    },
+    uploadFileError:{
+      code:'10001',
+      message:'上传文件失败',
+      result:''
+    }
   }
