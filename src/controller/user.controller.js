@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { createUser,getUerInfo,updateById,addClassToUser} = require('../service/user.service');
+const { createUser,getUerInfo,updateById,addClassToUser,uploadUserAvater} = require('../service/user.service');
 const {userRegisterError} = require('../constant/err.type');
 const { JWT_SECRET } = require('../config/config.default')
 
@@ -159,6 +159,20 @@ class UserController {
       }
     }
     // 3. 返回结果
+  }
+  async uploadUserAvater(ctx,next){
+    try {
+      let { user_name, avater } = ctx.request.body;
+      let ret = await uploadUserAvater(user_name,avater);
+      ctx.body = {
+        code:'200',
+        message:'修改用户头像成功'
+      }
+    } catch (error) {
+      console.log(error);
+      ctx.app.emit('error',uploadImageError,ctx)
+    }
+    
   }
 }
 

@@ -12,6 +12,12 @@ const ClassList = seq.define('nx_classlist', {
     comment: '课程名称',
     defaultValue: '计算机网络'
   },
+  classCover:{
+    type: DataTypes.STRING,
+    allowNull: true,
+    comment: '课程封面',
+    defaultValue: ''
+  },
   classTeacher: {
     type: DataTypes.STRING,
     allowNull: true,

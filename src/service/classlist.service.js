@@ -41,5 +41,14 @@ class ClassService {
           // SELECT * FROM post WHERE authorId = 2;
           return res
     }
+    async uploadClassCover(classCover,className){
+      let res = '';
+      res = await ClassList.update({classCover},{
+        where:{
+          className
+        }
+      })
+      return res
+    }
 }
 module.exports = new ClassService()

@@ -1,7 +1,7 @@
 
 const jwt = require('jsonwebtoken');
-const { getClassList,findClassListByClassName } = require('../service/classlist.service');
-const {getclassListError} = require('../constant/err.type');
+const { getClassList,findClassListByClassName,uploadClassCover } = require('../service/classlist.service');
+const {getclassListError,uploadImageError} = require('../constant/err.type');
 const { JWT_SECRET } = require('../config/config.default')
 
 class UserController {
@@ -47,6 +47,21 @@ class UserController {
             ctx.app.emit('error', getclassListError, ctx)
           return
         }
+    }
+    uploadClassCover = async(ctx,next)=>{
+      const { cover='',className='' } = ctx.request.body;
+      try {
+        const ret = await this.uploadClassCover(cover,className);
+        ctx.body = {
+          code: 200,
+          message: '上传课程封面成功',
+        }
+        
+      } catch (error) {
+        console.log(error);
+        ctx.app.emit('error', uploadImageError, ctx)
+        return
+      }
     }
 }
 

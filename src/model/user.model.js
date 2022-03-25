@@ -16,6 +16,12 @@ const User = seq.define('nx_user', {
     allowNull: true,
     comment: '密码',
   },
+  user_Avater:{
+    type:DataTypes.STRING,
+    allowNull:true,
+    comment:'用户头像',
+    defaultValue:''
+  },
   is_admin: {
     type: DataTypes.BOOLEAN,
     allowNull: true,
