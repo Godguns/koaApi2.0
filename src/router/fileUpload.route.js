@@ -1,7 +1,7 @@
 const Router = require('koa-router');
 const router = new Router({prefix:'/files'});
 const { auth } = require('../middleware/auth.middleware');
-
+const { uploadUserAvater } = require('../controller/user.controller');
 let accessKey = 'JDaBeFjynnIIGUCJ0VMXGPpMiZvNNebuW2Wglrf8'; 
 let secretKey = 'vIbbPa-FICKMinOcLDN0npMyMKRCUAhG6c_XB5Mj';
 let mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
@@ -36,5 +36,7 @@ router.get('/token',(req,res)=>{
   })
 
 })
+//上传头像
+router.post('/uploadAvater',auth,uploadUserAvater)
 
 module.exports = router;
